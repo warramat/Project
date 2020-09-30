@@ -85,7 +85,7 @@ export default class Login2 extends React.Component {
             <View>
                <View style={{  flex: 1 }}>
                   <View style={styles.container} >
-                    <Image resizeMode='center' style={{width:550, height: 300 }} source={require('./img/1545823206848.png')} />
+                    <Image resizeMode='center' style={{width:550, height: 300 }} source={require('./img/75233776_454978935140734_6244588247419191296_n.png')} />
                   </View>
                 
                   <Image style={styles.bgImage} source={{ uri: "https://www.img.in.th/images/16630c9da089ef062a6237f90e010776.jpg" }}/>

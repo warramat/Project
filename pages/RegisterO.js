@@ -65,22 +65,22 @@ export default class RegisterO extends React.Component {
  
   render() {
     return (
-      <View style={{ backgroundColor: 'white', flex: 1 }}>
+      <View style={{ backgroundColor: "#FFFF", flex: 1 }}>
         <ScrollView keyboardShouldPersistTaps="handled">
           <KeyboardAvoidingView
             behavior="padding"
             style={{ flex: 1, justifyContent: 'space-between' }}>
             <Mytextinput
-              placeholder="ชื่อ-สถุล"
+              placeholder="ชื่อ - นามสกุล"
               onChangeText={user_name => this.setState({ user_name })}
-              style={{ padding:10 }}
+              style={{ padding:15 }}
             />
             <Mytextinput
               placeholder="เบอร์โทรศัพท์"
               onChangeText={user_contact => this.setState({ user_contact })}
               maxLength={10}
               keyboardType="numeric"
-              style={{ padding:10 }}
+              style={{ padding:15 }}
             />
             <Mytextinput
               placeholder="ชื่อของบุตร"

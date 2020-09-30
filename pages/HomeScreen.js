@@ -1,6 +1,6 @@
 /*Home Screen With buttons to navigate to diffrent options*/
 import React from 'react';
-import { View } from 'react-native';
+import { View,Image} from 'react-native';
 import Mybutton from './components/Mybutton';
 import Mytext from './components/Mytext';
 import { openDatabase } from 'react-native-sqlite-storage';
@@ -32,10 +32,12 @@ export default class HomeScreen extends React.Component {
       <View
         style={{
           flex: 1,
-          backgroundColor: 'white',
+          backgroundColor: '#FFCCCC',
           flexDirection: 'column',
+         
         }}>
-        <Mytext text="Addmin" />
+           <Image  style={{width:200, height: 200 ,left:50,right:100,  margin: 50,}} source={require('./img/test2.png')} />
+          
        
         <Mybutton
           title="อัพเดทข้อมูล"

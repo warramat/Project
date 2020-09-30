@@ -17,13 +17,15 @@ import Login from './pages/Login';
 import Parent from './pages/Parent';
 import Tellteacher from './pages/Tellteacher';
 import Telldriver from './pages/Telldriver';
+import TellTemp from './pages/TellTemp';
 import statusChil from './pages/statusChil';
 import Login2 from './pages/Login2';
 import RegisterO from './pages/RegisterO';
 import Stoptravel from './pages/Stoptravel';
 import Load from './pages/Load';
 import Map from './pages/Map';
-import SW from './pages/SW';
+import test from './pages/test';
+
 
 
 
@@ -41,7 +43,7 @@ const App = createStackNavigator({
   HomeScreen: {
     screen: HomeScreen,
     navigationOptions: {
-      title: 'ตั้งค่าระบบ',
+      title: 'Admin',
       headerStyle: { backgroundColor: '#FFCCCC' },
       headerTintColor: '#ffffff',
     },
@@ -75,6 +77,14 @@ const App = createStackNavigator({
     navigationOptions: {
       title: 'ติดต่อคนขับรถ',
       headerStyle: { backgroundColor: '#A0AFFF' },
+      headerTintColor: '#ffffff',
+    },
+  },
+  TellTemp: {
+    screen: TellTemp,
+    navigationOptions: {
+      title: 'Tempurator',
+      headerStyle: { backgroundColor: '#FF3366' },
       headerTintColor: '#ffffff',
     },
   },
@@ -159,15 +169,14 @@ const App = createStackNavigator({
       headerTintColor: '#ffffff',
     },
   },
-  SW: {
-    screen: SW,
+  test: {
+    screen: test,
     navigationOptions: {
-      title: 'Switch',
+      title: 'test',
       headerStyle: { backgroundColor: '#f05555' },
       headerTintColor: '#ffffff',
     },
   },
-  
 });
 //For React Navigation Version 2+
 //export default App;

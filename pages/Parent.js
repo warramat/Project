@@ -1,17 +1,46 @@
+
 import React, { Component } from 'react';
-import { Alert, AppRegistry, StyleSheet, Text,  View ,Image} from 'react-native';
+import { Alert, AppRegistry, StyleSheet, Text,  View ,FlatList,Image} from 'react-native';
 
 import Mybutton from './components/Mybutton';
 
 
-export default class Parent extends Component {
-  render() {
-    return (
-      <View >
-        <Image  style={{width:80, height: 100 }} source={require('./img/75233776_454978935140734_6244588247419191296_n.png')} />
-        <Image  style={styles.container} 
-             source={require('./img/1545823206848.png')} />
-        <Text style={styles.welcome}>นายวรเมธ สุทธิคณะ</Text>
+export default class test extends React.Component {
+  state={
+    data:[]
+  }
+
+  fetchData= async()=>{
+    const response = await fetch('http://172.16.186.73:3000/get-Temperature-list'); //http://localhost:1348/testTabl //http://172.16.186.173:1348/testTabl
+    const testTable = await response.json();
+    this.setState({data: testTable});
+  }
+  componentWillMount(){
+    this.fetchData();
+}
+render() {
+  return (
+     
+    
+    <View style={styles.container}>
+     
+       
+    <FlatList
+      data={this.state.data}
+      keyExtractor= {(item,index) => index.toString()}
+      renderItem={({item})=>
+
+      <View style={styles.container1}>
+        <Text style={{color:'#fff', fontWeight:'bold'}}>
+        <Text style={{color:'#000'}}>อุณหภูมิ: {item.tempe}</Text>
+        </Text>
+      </View>
+      } 
+      />
+        <Image  style={styles.container2} 
+        
+             source={require('./img/test.png')} />
+             <Image  style={styles.container} />
         <Mybutton
           title="ตำแหน่งของเด็ก"
           customClick={() => this.props.navigation.navigate('Map')}
@@ -24,36 +53,65 @@ export default class Parent extends Component {
           title="ติดต่อคนขับรถ"
           customClick={() => this.props.navigation.navigate('Telldriver')}
         />
-        <Mybutton
-          title="แจ้งหยุดการรับ-ส่ง"
-          customClick={() => this.props.navigation.navigate('Stoptravel')}
-        />
-        <Mybutton
-          title="สวิชส์"
-          customClick={() => this.props.navigation.navigate('SW')}
-        />
-      </View>
-
+       
+        </View>
+       
     );
   }
-};
-
+  
+}
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    alignItems: 'center',
-    width:150,
-    height: 200 ,
-    marginLeft:130,
+    flex: 1,
+   margin: 10,
+    height: 10 ,
     justifyContent: 'center',
-    backgroundColor: '#FFCCCC'
     
   },
+  container1: {
+   //flex: 1,
+   alignItems: 'center',
+   width:150, height: 120,
+   marginLeft:20,
+   marginRight:60,
+   justifyContent: 'center',
+   margin: -20,
+   //backgroundColor: '#fff'
+   
+ },
+ container2: {
+ alignItems: 'center',
+    width:100,
+    height: 200 ,
+    marginLeft:130,
+    marginRight:100,
+    justifyContent: 'center',
+    margin: 20,
+    
+    
+  },
+  container3: {
+ padding:50,margin:5,borderRadius:100,
+   marginLeft:30,
+    marginRight:40,
+    justifyContent: 'center',
+ },
+ container4: {
+   //flex: 1,
+   alignItems: 'center',
+   width: 150,
+   height: 150,
+   marginLeft: 120,
+   marginRight: 100,
+   justifyContent: 'center',
+   margin: 30,
+
+ },
   welcome: {
-    fontSize: 15,
+    fontSize: 50,
     textAlign: 'center',
-    margin: 10,
+    margin: 30,
   },
   button: {
     marginBottom: 20,

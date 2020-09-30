@@ -1,74 +1,77 @@
-import React, { Component } from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
-import MapViewDirections from 'react-native-maps-directions';
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator,StyleSheet, Text, View , TextInput } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE,Polyline } from 'react-native-maps';
 
-const { width, height } = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
-const LATITUDE = 8.638246;
-const LONGITUDE = 99.898686;
-const LATITUDE_DELTA = 0.00922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
-const GOOGLE_MAPS_APIKEY = 'AIzaSyAwuyNKkKiK_NbRMlg_4u_OrzOk3DNhWd8';
-
-class Map extends Component {
-
-  constructor(props) {
-    super(props);
-
-    // AirBnB's Office, and Apple Park
-    this.state = {
-      coordinates: [
-        {
-          latitude: 8.638246,
-          longitude: 99.898686,
-        },
-        {
-          latitude: 8.639657,
-          longitude: 99.894738,
-        },
-      ],
-    };
-
-    this.mapView = null;
-  }
-
-  onMapPress = (e) => {
-    this.setState({
-      coordinates: [
-        ...this.state.coordinates,
-        e.nativeEvent.coordinate,
-      ],
-    });
-  }
-
-  render() {
-    const origin = {latitude: 8.638246, longitude: 99.898686};
-const destination = {latitude: 8.639657, longitude:  99.894738};
-    return (
-      <MapView
-        initialRegion={{
-          latitude: LATITUDE,
-          longitude: LONGITUDE,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        }}
-        style={StyleSheet.absoluteFill}
-        ref={c => this.mapView = c}
-        onPress={this.onMapPress}
-      >
-        {this.state.coordinates.map((coordinate, index) =>
-          <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} />
-        )}
-          <MapViewDirections
-    origin={origin}
-    destination={destination}
-    apikey={'AIzaSyAwuyNKkKiK_NbRMlg_4u_OrzOk3DNhWd8'}
-  />
-      </MapView>
-    );
-  }
+const initialState = {
+  latitude: null,
+  longitude: null,  
+  latitudeDelta: 0.000600,
+  longitudeDelta: 0.00100,
 }
+const App = () => {
+  const [curentPosition, setCurentPosition] = useState(initialState);
+  const mapRef = React.createRef();
 
-export default Map;
+  useEffect(() => {
+    setInterval(() => {
+      fetch('http://172.16.186.65:3000/get-lo-list', {
+        method: 'GET',
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          const car1 = responseJson.find(({ carId }) => carId === 'car001')
+          // const car2 = responseJson.find(({ carId }) => carId === 'car002')
+          setCurentPosition({
+            latitude: car1.lat,
+            longitude: car1.long,
+          })
+        })
+    }, 1000)
+  }, [])
+
+
+  return curentPosition.latitude ? (
+    <MapView
+      provider={PROVIDER_GOOGLE}
+      mapType = 'standard'
+      style={{ flex: 1 }}
+      showsUserLocation
+      ref={mapRef}    
+      style={{flex: 1}}  
+      region={{
+        latitude: curentPosition.latitude,
+        longitude: curentPosition.longitude,
+        latitudeDelta: 0.00600,
+        longitudeDelta: 0.00100,
+      }}
+    >
+      
+      <Marker
+        coordinate={{
+          latitude: curentPosition.latitude,
+          longitude: curentPosition.longitude,
+        }}
+        
+       // image={require("./img/fix.png")}
+    
+       
+        title='You Here'
+        description="Hello you are here!"
+      />
+   
+      
+    </MapView>
+  ) : <ActivityIndicator style={{ flex: 1 }} animating size="large" />
+};
+
+
+const styles = StyleSheet.create({
+  container: {
+    
+   width: 10,
+    height: 10 ,
+    
+  },
+});
+
+export default App;
