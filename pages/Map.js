@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator,StyleSheet, Text, View , TextInput } from 'react-native';
+import { ActivityIndicator,StyleSheet, Image, Text, View , TextInput } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE,Polyline } from 'react-native-maps';
+import school from '../noti/school';
 
 const initialState = {
   latitude: null,
@@ -14,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     setInterval(() => {
-      fetch('http://172.16.186.65:3000/get-lo-list', {
+      fetch('http://172.16.186.51:3000/get-lo-list', {
         method: 'GET',
       })
         .then((response) => response.json())
@@ -51,14 +52,20 @@ const App = () => {
           latitude: curentPosition.latitude,
           longitude: curentPosition.longitude,
         }}
-        
-       // image={require("./img/fix.png")}
-    
-       
         title='You Here'
         description="Hello you are here!"
-      />
-   
+      >
+        <Image style={{ width: 80, height: 80 }} source={require("./img/fix.png")} />
+      </Marker>
+      
+   <Polyline
+		coordinates={[
+			{ latitude: curentPosition.latitude, longitude: curentPosition.longitude },
+			{ latitude: school[0].lat, longitude: school[0].lng },
+		]}
+		strokeColor="red" // fallback for when `strokeColors` is not supported by the map-provider
+		strokeWidth={4}
+	/>
       
     </MapView>
   ) : <ActivityIndicator style={{ flex: 1 }} animating size="large" />

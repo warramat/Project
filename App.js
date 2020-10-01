@@ -25,6 +25,7 @@ import Stoptravel from './pages/Stoptravel';
 import Load from './pages/Load';
 import Map from './pages/Map';
 import test from './pages/test';
+import Datarssi from './pages/Datarssi';
 
 
 
@@ -173,6 +174,14 @@ const App = createStackNavigator({
     screen: test,
     navigationOptions: {
       title: 'test',
+      headerStyle: { backgroundColor: '#f05555' },
+      headerTintColor: '#ffffff',
+    },
+  },
+  Datarssi: {
+    screen: Datarssi,
+    navigationOptions: {
+      title: 'RSSI',
       headerStyle: { backgroundColor: '#f05555' },
       headerTintColor: '#ffffff',
     },

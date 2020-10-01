@@ -53,6 +53,10 @@ render() {
           title="ติดต่อคนขับรถ"
           customClick={() => this.props.navigation.navigate('Telldriver')}
         />
+        <Mybutton
+          title="RSSI"
+          customClick={() => this.props.navigation.navigate('Datarssi')}
+        />
        
         </View>
        
